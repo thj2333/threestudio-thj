@@ -11,7 +11,7 @@ data:
 
 system_type: "control4d-multiview-system"
 system:
-  start_editing_step: 2000
+  start_editing_step: 10
 
   geometry_type: "implicit-volume"
   geometry:

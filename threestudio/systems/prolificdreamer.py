@@ -16,7 +16,7 @@ class ProlificDreamer(BaseLift3DSystem):
     class Config(BaseLift3DSystem.Config):
         # in ['coarse', 'geometry', 'texture']
         stage: str = "coarse"
-        visualize_samples: bool = False
+        visualize_samples: bool = True
 
     cfg: Config
 
@@ -28,6 +28,7 @@ class ProlificDreamer(BaseLift3DSystem):
         self.prompt_processor = threestudio.find(self.cfg.prompt_processor_type)(
             self.cfg.prompt_processor
         )
+
         self.prompt_utils = self.prompt_processor()
 
     def forward(self, batch: Dict[str, Any]) -> Dict[str, Any]:
@@ -139,13 +140,35 @@ class ProlificDreamer(BaseLift3DSystem):
                 if "comp_normal" in out
                 else []
             )
-            + [
+            + ([
                 {
                     "type": "grayscale",
                     "img": out["opacity"][0, :, :, 0],
                     "kwargs": {"cmap": None, "data_range": (0, 1)},
                 },
-            ],
+            ])
+            + (
+                [
+                    {
+                        "type": "rgb",
+                        "img": out["comp_rgb_fg"][0],
+                        "kwargs": {"data_format": "HWC"},
+                    },
+                ]
+                if "comp_rgb_fg" in out
+                else []
+            )
+            + (
+                [
+                    {
+                        "type": "rgb",
+                        "img": out["comp_rgb_bg"][0],
+                        "kwargs": {"data_format": "HWC"},
+                    },
+                ]
+                if "comp_rgb_bg" in out
+                else []
+            ),
             name="validation_step",
             step=self.true_global_step,
         )

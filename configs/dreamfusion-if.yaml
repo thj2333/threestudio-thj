@@ -48,7 +48,7 @@ system:
       start_step: 2000
       update_steps: 500
 
-  material_type: "diffuse-with-point-light-material"
+  material_type: "diffuse-with-point-light-material"q
   material:
     ambient_only_steps: 2001
     albedo_activation: scale_-11_01

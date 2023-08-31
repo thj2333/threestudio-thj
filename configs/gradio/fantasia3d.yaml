@@ -31,14 +31,14 @@ system:
     isosurface_coarse_to_fine: false
 
     # initialize SDF by optimization
-    shape_init: sphere
-    shape_init_params: 0.5
+    # shape_init: sphere
+    # shape_init_params: 0.5
 
     # or you can initialize SDF using a guide mesh
-    # shape_init: mesh:load/shapes/human.obj
-    # shape_init_params: 0.9
-    # shape_init_mesh_up: +y
-    # shape_init_mesh_front: +z
+    shape_init: mesh:load/shapes/bed.obj
+    shape_init_params: 0.9
+    shape_init_mesh_up: +y
+    shape_init_mesh_front: +z
 
     # an alternative initialization implementation:
     # you can initialize SDF to sphere/ellipsoid by adding a bias value
@@ -94,10 +94,10 @@ system:
       eps: 1.e-15
 
 trainer:
-  max_steps: 5000
+  max_steps: 1000
   log_every_n_steps: 1
   num_sanity_val_steps: 1
-  val_check_interval: 200
+  val_check_interval: 100
   enable_progress_bar: true
   precision: 16-mixed
 

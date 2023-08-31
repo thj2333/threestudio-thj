@@ -190,12 +190,12 @@ class NeRFVolumeRenderer(VolumeRenderer):
         comp_rgb = comp_rgb_fg + bg_color * (1.0 - opacity)
 
         out = {
-            "comp_rgb": comp_rgb.view(batch_size, height, width, -1),
-            "comp_rgb_fg": comp_rgb_fg.view(batch_size, height, width, -1),
-            "comp_rgb_bg": comp_rgb_bg.view(batch_size, height, width, -1),
-            "opacity": opacity.view(batch_size, height, width, 1),
-            "depth": depth.view(batch_size, height, width, 1),
-            "z_variance": z_variance.view(batch_size, height, width, 1),
+            "comp_rgb": comp_rgb.view(batch_size, height, width, -1),           # [1,64,64,11]
+            "comp_rgb_fg": comp_rgb_fg.view(batch_size, height, width, -1),     # [1,64,64,11]
+            "comp_rgb_bg": comp_rgb_bg.view(batch_size, height, width, -1),     # [1,64,64,11]
+            "opacity": opacity.view(batch_size, height, width, 1),              # [1,64,64,1]
+            "depth": depth.view(batch_size, height, width, 1),                  # [1,64,64,1]
+            "z_variance": z_variance.view(batch_size, height, width, 1),        # [1,64,64,1]
         }
 
         if self.training:
